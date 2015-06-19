@@ -1,7 +1,7 @@
 CXX = clang++
 # If your compiler is a bit older you may need to change -std=c++11 to -std=c++0x
 CXXFLAGS = -Wall -c -std=c++11 -I/usr/local/include/SDL2 -Iinclude -D_THREAD_SAFE
-LDFLAGS = -L/usr/local/lib -lSDL2
+LDFLAGS = -L/usr/local/lib -lSDL2 -L/Library/Frameworks/SDL2_image.framework 
 INITTEST = bin/SDLInitTest.out
 PRINTRES = bin/PrintResPath.out
 LESSON1 = bin/Lesson1.out
