@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "res_path.h"
 #include "cleanup.h"
 
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 		SDL_Quit();
 		return 1;
 	}
-	
+
 	SDL_Renderer *ren = SDL_CreateRenderer
 	(
 		win, -1,
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		SDL_Quit();
 	}
-	
+
 	std::string imagePath = getResourcePath("lesson1") + "hello.bmp";
 	SDL_Surface *bmp = SDL_LoadBMP(imagePath.c_str());
 	if(bmp == nullptr){
@@ -60,7 +60,7 @@ int main(int argc, char **argv)
 
 	SDL_Delay(2000);
 
-	cleanup(tex, ren, win);	
+	cleanup(tex, ren, win);
 	SDL_Quit();
 	return 0;
 }

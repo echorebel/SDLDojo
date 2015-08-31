@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "res_path.h"
 #include "cleanup.h"
 
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 {
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 460;
-	
+
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
 		logSDLError(std::cout, "SDL_INIT");
 		return 1;
@@ -83,15 +83,15 @@ int main(int argc, char **argv)
 		SDL_Quit();
 		return 1;
 	}
-	
+
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if(ren == nullptr){
 		cleanup(win);
-		logSDLError(std::cout, "CreateRenderer");	
+		logSDLError(std::cout, "CreateRenderer");
 		SDL_Quit();
 		return 1;
 	}
-	
+
 	std::string resPath = getResourcePath("lesson2");
 	SDL_Texture *background = loadTexture(resPath + "background.bmp", ren);
 	SDL_Texture *image = loadTexture(resPath + "image.bmp", ren);
@@ -121,9 +121,7 @@ int main(int argc, char **argv)
 
 	SDL_Delay(5000);
 
-	cleanup(background, image, ren, win);	
+	cleanup(background, image, ren, win);
 	SDL_Quit();
 	return 0;
 }
-
-				
