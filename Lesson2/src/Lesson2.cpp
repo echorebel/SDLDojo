@@ -5,12 +5,6 @@
 #include "cleanup.h"
 
 /**
-https://wiki.libsdl.org/SDL_GetBasePath
-return working folder where binary runs, this is the data directory
-related function is https://wiki.libsdl.org/SDL_GetPrefPath, where u can store user data / save games
-**/
-
-/**
  * Log an SDL error with some error message to the output stream of your choice
  * @param os The output stream to write message to
  * @param msg The error message to write, format will be msg error: SDL_GetError()
