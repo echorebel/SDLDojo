@@ -41,7 +41,7 @@ std::string getResourcePath(const std::string &subDir = ""){
 			return "";
 		}
 		//We replace the last bin/ with res/ to get the the resource path
-		size_t pos = baseRes.rfind("bin");
+		size_t pos = baseRes.rfind("build");
 		baseRes = baseRes.substr(0, pos) + "res" + PATH_SEP;
 	}
 	//If we want a specific subdirectory path in the resource directory
