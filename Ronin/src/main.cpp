@@ -1,14 +1,34 @@
 #include <string>
 #include <iostream>
 #include <SDL2/SDL.h>
+
 #ifdef __APPLE__
 	#include <SDL_ttf.h>
+	#include <SDL_image.h>
 #elif __linux__
 	#include <SDL2/SDL_ttf.h>
+	#include <SDL2/SDL_image.h>
 #endif
+
 #include "log.h"
 #include "res_path.h"
 #include "cleanup.h"
+
+/**
+ * Load an image into a texture on the rendering device
+ * @param file The image file to load
+ * @param ren The renderer to load the texture onto
+ * @return the loaded texture, or nullptr if something went wrong.
+ */
+SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
+{
+    SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
+    if(texture == nullptr)
+    {
+      logSDLError(std::cout, "LoadTexture");
+    }
+    return texture;
+}
 
 /**
  * Render the message we want to display to a texture for drawing
@@ -144,13 +164,35 @@ int main()
 		return 1;
 	}
 
+	// not necessary happens automatically but it will delay start
+	// so it's better to have it under control
+	if ((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG)
+	{
+		logSDLError(std::cout, "IMG_Init");
+		SDL_Quit();
+		return 1;
+	}
+
   const std::string resPath = getResourcePath("Ronin");
+
+	SDL_Texture *ship = loadTexture(resPath + "spaceship.png", ren);
+	// make sure they both loaded
+	if(ship == nullptr)
+	{
+		cleanup(ship, ren, win);
+		IMG_Quit();
+		TTF_Quit();
+		SDL_Quit();
+		return 1;
+	}
+
 	// Color is in RGBA format
 	SDL_Color color = {255,255,255,255};
 	SDL_Texture *image = renderText("Ronin", resPath + "kenvector_future.ttf", color, 64, ren);
 	if(image == nullptr)
 	{
-		cleanup(ren, win);
+		cleanup(ship, ren, win);
+		IMG_Quit();
 		TTF_Quit();
 		SDL_Quit();
 		return 1;
@@ -200,6 +242,7 @@ int main()
 		// render our scene
 		SDL_RenderClear(ren);
 		renderTexture(image, ren, x, y);
+		renderTexture(ship, ren, x, y + 200);
 		SDL_RenderPresent(ren);
 	}
 
