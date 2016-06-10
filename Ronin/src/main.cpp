@@ -14,6 +14,8 @@
 #include "res_path.h"
 #include "cleanup.h"
 
+using namespace std;
+
 /**
  * Load an image into a texture on the rendering device
  * @param file The image file to load
@@ -25,7 +27,7 @@ SDL_Texture* loadTexture(const std::string &file, SDL_Renderer *ren)
     SDL_Texture *texture = IMG_LoadTexture(ren, file.c_str());
     if(texture == nullptr)
     {
-      logSDLError(std::cout, "LoadTexture");
+      logSDLError(cout, "LoadTexture");
     }
     return texture;
 }
@@ -45,7 +47,7 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontfile,
 	TTF_Font *font = TTF_OpenFont(fontfile.c_str(), fontSize);
 	if(font == nullptr)
 	{
-		logSDLError(std::cout, "TTF_OpenFont");
+		logSDLError(cout, "TTF_OpenFont");
 		return nullptr;
 	}
 	// We need to first render to a surface as that's what TTF_RenderText
@@ -54,13 +56,13 @@ SDL_Texture* renderText(const std::string &message, const std::string &fontfile,
 	if(surf == nullptr)
 	{
 		TTF_CloseFont(font);
-		logSDLError(std::cout, "TTF_RenderText");
+		logSDLError(cout, "TTF_RenderText");
 		return nullptr;
 	}
 	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
 	if(texture == nullptr)
 	{
-		logSDLError(std::cout, "CreateTexture");
+		logSDLError(cout, "CreateTexture");
 	}
 	// clean surface and font
 	SDL_FreeSurface(surf);
@@ -201,6 +203,8 @@ int main()
   bool quit = false;
 	SDL_Event e;
 
+	Spaceship ship;
+
 	while(!quit)
 	{
 		// read user input and handle it
@@ -222,14 +226,21 @@ int main()
 					case SDLK_ESCAPE:
 						quit = true;
 						break;
+					case SDLK_LEFT:
+						ship.x -= 5;
+						break;
+					case SDLK_RIGHT:
+						ship.x += 5;
+						break;
 					default:
+						cout << "button pressed: " << e.key.keysym.sym << endl;
 						break;
 				}
 			}
 			// If user clicks the mouse
 			if(e.type == SDL_MOUSEBUTTONDOWN)
 			{
-				quit = true;
+				cout << "mouse clicked" << endl;
 			}
 		}
 
@@ -242,7 +253,7 @@ int main()
 		// render our scene
 		SDL_RenderClear(ren);
 		renderTexture(image, ren, x, y);
-		renderTexture(ship, ren, x, y + 200);
+		renderTexture(ship, ren, ship.x, ship.y + 200);
 		SDL_RenderPresent(ren);
 	}
 
