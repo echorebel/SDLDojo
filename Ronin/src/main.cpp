@@ -14,6 +14,8 @@
 #include "res_path.h"
 #include "cleanup.h"
 
+#include "Spaceship.h"
+
 using namespace std;
 
 /**
@@ -177,11 +179,11 @@ int main()
 
   const std::string resPath = getResourcePath("Ronin");
 
-	SDL_Texture *ship = loadTexture(resPath + "spaceship.png", ren);
+	SDL_Texture *shipTex = loadTexture(resPath + "spaceship.png", ren);
 	// make sure they both loaded
-	if(ship == nullptr)
+	if(shipTex == nullptr)
 	{
-		cleanup(ship, ren, win);
+		cleanup(shipTex, ren, win);
 		IMG_Quit();
 		TTF_Quit();
 		SDL_Quit();
@@ -193,7 +195,7 @@ int main()
 	SDL_Texture *image = renderText("Ronin", resPath + "kenvector_future.ttf", color, 64, ren);
 	if(image == nullptr)
 	{
-		cleanup(ship, ren, win);
+		cleanup(shipTex, ren, win);
 		IMG_Quit();
 		TTF_Quit();
 		SDL_Quit();
@@ -227,10 +229,10 @@ int main()
 						quit = true;
 						break;
 					case SDLK_LEFT:
-						ship.x -= 5;
+						ship.x -= 1;
 						break;
 					case SDLK_RIGHT:
-						ship.x += 5;
+						ship.x += 1;
 						break;
 					default:
 						cout << "button pressed: " << e.key.keysym.sym << endl;
@@ -253,7 +255,7 @@ int main()
 		// render our scene
 		SDL_RenderClear(ren);
 		renderTexture(image, ren, x, y);
-		renderTexture(ship, ren, ship.x, ship.y + 200);
+		renderTexture(shipTex, ren, ship.x, ship.y + 200);
 		SDL_RenderPresent(ren);
 	}
 

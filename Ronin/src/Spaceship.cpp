@@ -1,4 +1,7 @@
 #include "Spaceship.h"
+#include <iostream>
+
+using namespace std;
 
 Spaceship::Spaceship()
 {
