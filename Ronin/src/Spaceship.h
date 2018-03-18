@@ -4,9 +4,11 @@ class Spaceship
 {
   public:
     Spaceship();
-    fire();
+    void fire();
     int x;
     int y;
+    int maxSpeedX;
+    int maxSpeedY;
     int energy;
   private:
 

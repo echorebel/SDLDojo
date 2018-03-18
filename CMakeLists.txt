@@ -23,11 +23,11 @@ endif()
 
 # Look up SDL2 and add the include directory to our include path
 find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 include_directories(${SDL_INCLUDE_DIR})
 include_directories(include)
 
 # Look in the Lessons subdirectory to find its CMakeLists.txt so we can build the executables
-add_subdirectory(Lesson0)
 add_subdirectory(Lesson1)
 add_subdirectory(Lesson2)
 add_subdirectory(Lesson3)
@@ -35,3 +35,4 @@ add_subdirectory(Lesson4)
 add_subdirectory(Lesson5)
 add_subdirectory(Lesson6)
 add_subdirectory(Ronin)
+add_subdirectory(SpaceStation)

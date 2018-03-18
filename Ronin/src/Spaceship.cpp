@@ -8,10 +8,12 @@ Spaceship::Spaceship()
     cout << "Spaceship created" << endl;
     x = 100;
     y = 100;
+    maxSpeedX = 3;
+    maxSpeedY = 3;
     energy = 10;
 }
 
-Spaceship::fire()
+void Spaceship::fire()
 {
   cout << "fire" << endl;
 }

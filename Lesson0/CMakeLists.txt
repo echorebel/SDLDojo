@@ -1,7 +1,0 @@
-project(Lesson0)
-add_executable(Lesson0 src/main.cpp)
-add_executable(PrintResPath src/PrintResPath.cpp)
-target_link_libraries(Lesson0 ${SDL2_LIBRARY})
-target_link_libraries(PrintResPath ${SDL2_LIBRARY})
-install(TARGETS Lesson0 RUNTIME DESTINATION ${BIN_DIR})
-install(TARGETS PrintResPath RUNTIME DESTINATION ${BIN_DIR})
