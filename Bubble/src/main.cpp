@@ -135,7 +135,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	SDL_Window *win = SDL_CreateWindow("Bubble!", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if(win == nullptr)x
+	if(win == nullptr)
 	{
 		logSDLError(std::cout, "CreateWindow");
 		SDL_Quit();
@@ -159,6 +159,8 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
+	SDL_RenderClear(ren);
+
 	/* Create a 32-bit surface with the bytes of each pixel in R,G,B,A order,
 		 as expected by OpenGL for textures */
 	SDL_Surface *surface;
@@ -178,14 +180,16 @@ int main(int argc, char **argv)
     amask = 0xff000000;
 	#endif
 
-	surface = SDL_CreateRGBSurface(0, width, height, 32, rmask, gmask, bmask, amask);
-  if(surface == NULL)
-  {
-    logSDLError(std::cout, "CreateRGBSurface failed");
-    IMG_Quit();
-    SDL_Quit();
-    return 1;
-  }
+	surface = SDL_CreateRGBSurface(0, 640, 480, 32, rmask, gmask, bmask, amask);
+	if(surface == NULL)
+	{
+		logSDLError(std::cout, "CreateRGBSurface failed");
+		IMG_Quit();
+		SDL_Quit();
+		return 1;
+	}
+
+	draw_circle(surface, 100, 100, 20, SDL_MapRGB(format, 0xFF, 0xFC, 0x00 );
 
 	bool quit = false;
 	SDL_Event e;
@@ -222,7 +226,7 @@ int main(int argc, char **argv)
 		*/
 	}
 
-	cleanup(image, ren, win);
+	cleanup(surface, ren, win);
 	IMG_Quit();
 	SDL_Quit();
 
