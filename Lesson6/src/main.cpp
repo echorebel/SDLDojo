@@ -127,7 +127,7 @@ void renderTexture(SDL_Texture *tex, SDL_Renderer *ren, int x, int y, SDL_Rect *
 	renderTexture(tex, ren, dst, clip);
 }
 
-int main(int argc, char **argv)
+int main()
 {
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 460;
