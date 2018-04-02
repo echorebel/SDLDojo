@@ -1,14 +1,9 @@
 #include <string>
 #include <iostream>
-#include <SDL2/SDL.h>
-#ifdef __APPLE__
-	#include <SDL_image.h>
-#elif __linux__
-	#include <SDL2/SDL_image.h>
-#endif
 #include "log.h"
 #include "res_path.h"
 #include "cleanup.h"
+#include "sdl.h"
 
 /**
  * Load an image into a texture on the rendering device
